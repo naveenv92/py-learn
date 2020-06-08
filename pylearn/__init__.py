@@ -1,1 +1,1 @@
-from .pylearn import LinearRegression
+from .pylearn import *
