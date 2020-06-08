@@ -106,7 +106,6 @@ class LogisticRegression:
             w_hist: (n+1) x num_iters matrix of weights
         """
 
-        m = len(y)
         X = np.hstack((np.ones(shape=(X.shape[0], 1)), X))
         w_train = np.zeros(shape=(X.shape[1], 1))
         J = np.zeros(num_iters)
@@ -126,47 +125,3 @@ class LogisticRegression:
         ax.plot(range(num_iters), J, linewidth=2)
         ax.set(xlabel='Iterations', ylabel='Cost')
         plt.show()
-
-
-
-if __name__ == '__main__':
-
-    '''Linear Regression'''
-    # Generate some data with noise
-    w0_samp = 4
-    w1_samp = 3
-    x = np.linspace(-2, 4, 100)
-    np.random.seed(10242)
-    y = w0_samp + w1_samp*x + 3*np.random.normal(size=x.size)
-
-    # Initialize variables
-    X = x.reshape(len(x), 1)
-    y = y.reshape(len(x), 1)
-
-    fit = LinearRegression()
-    fit.fit(X, y, 0.01, 1000, True)
-    print(fit.weights)
-    print(fit.predict(np.array([[3], [4], [5]])))
-
-    '''Logistic Regression'''
-    x1 = 5*np.random.random(size=100)
-    x2 = 5*np.random.random(size=100)
-
-    y = np.zeros(len(x1))
-    boundary = lambda x1, x2: 6 - x1 - 2*x2
-
-    # Set y = 1 above decision boundary
-    for i in range(len(y)):
-        if boundary(x1[i], x2[i]) <= 0:
-            y[i] = 1
-        else:
-            y[i] = 0
-
-    # Initialize variables
-    X = np.hstack((x1.reshape(len(x1), 1), x2.reshape(len(x2), 1)))
-    y = y.reshape(len(y), 1)
-
-    fit = LogisticRegression()
-    fit.fit(X, y, 0.5, 2000, True)
-    print(fit.weights)
-
